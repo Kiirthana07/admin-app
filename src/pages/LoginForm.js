@@ -40,7 +40,8 @@ const LoginForm = () => {
       console.log(res);
       history.push("/home");
     }).catch(error => {
-      console.log('Incorrect email or password')
+      console.log();
+      alert('Incorrect email');
       //   setError.show(
       //     "Alert Title",
       //     "Sorry! Unable to Login!!",
