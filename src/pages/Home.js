@@ -1,8 +1,7 @@
-import React from 'react';
 //import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { firestore } from 'firebase';
-import {functions } from './../components/Firebase'
+import React from 'react';
+import { db, functions } from '../firebase';
 
 
 
@@ -17,9 +16,7 @@ class Home extends React.Component {
 
     
       componentDidMount () {
-
-        firestore().collection('Users')
-        .onSnapshot(snapshot => {
+        db.collection('Users').onSnapshot(snapshot => {
             const users = snapshot.docs
                 .map(user => {
                     return {
@@ -32,35 +29,14 @@ class Home extends React.Component {
     }
 
     disableUser = (user) => {
-        // const disableUser = functions.httpsCallable('disableUser');
-        // disableUser(user.uid).then(function(result) {
-        //     // Read result of the Cloud Function.
-        //     var message = result.data.text;
-        // console.log('Message: ', message);
-        //     // ...
-        //   }).catch(err=>{
-        //       console.log('err, ', err);
-        //   });
-          
-
-        //  root.updateUser(user.uid, {
-        //     //email: this.user.email,
-        //     disabled: true
-        //   }).then(function(userRecord) {
-        //       // See the UserRecord reference doc for the contents of userRecord.
-        //       console.log('Successfully updated user', userRecord.toJSON());
-        //     })
-        //     .catch(function(error) {
-        //       console.log('Error updating user:', error);
-        //     });
-     
-        
-        
-        
-    //         // firebase.auth().then( currentUser => {
-    //     // userUid = currentUser.uid
-    //     // })
-    //     // .catch(error => console.log(error) )
+        const disableUser = functions.httpsCallable('disableUser');
+        disableUser(user.uid).then(function(result) {
+            var message = result.data.text;
+        console.log('Message: ', message);
+            // ...
+          }).catch(err=>{
+              console.log('err, ', err);
+          });
      }
 
     
