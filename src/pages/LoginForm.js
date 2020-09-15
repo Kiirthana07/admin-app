@@ -1,25 +1,24 @@
-import React, {useState} from 'react';
 import Avatar from '@material-ui/core/Avatar';
+import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Grid from '@material-ui/core/Grid';
 import Link from '@material-ui/core/Link';
 import Paper from '@material-ui/core/Paper';
-import Box from '@material-ui/core/Box';
-import Grid from '@material-ui/core/Grid';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-import { auth} from "./../components/Firebase";
+import TextField from '@material-ui/core/TextField';
+import Typography from '@material-ui/core/Typography';
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import React, { useState } from 'react';
 import { useHistory } from "react-router-dom";
-import { useAlert } from 'react-alert';
 import * as yup from 'yup';
+import { auth } from "../firebase";
 
 // import bgimage from './images/bgimage.jpg'
 
-const LoginForm = ()=>{
+const LoginForm = () => {
 
   const schema = yup.object().shape({
     email: yup.string().email().required(),
@@ -29,29 +28,29 @@ const LoginForm = ()=>{
   const history = useHistory();
 
 
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [error, setError] = useState(null);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState(null);
 
-    const signInWithEmailAndPasswordHandler = (event,email, password) => {
-        event.preventDefault();
-        // schema.validate(this.state).then(valid => {
-        //   console.log(valid);
-        auth.signInWithEmailAndPassword(email, password).then(res=>{
-          console.log(res);
-          history.push("/home");
-        }).catch(error => {
-          console.log('Incorrect email or password')
-        //   setError.show(
-        //     "Alert Title",
-        //     "Sorry! Unable to Login!!",
-        //     [
-        //         { text: "OK", onClick: () => console.log("OK Pressed") }
-        //     ],
-        //     { cancelable: false }
-        // );
-        });
-        
+  const signInWithEmailAndPasswordHandler = (event, email, password) => {
+    event.preventDefault();
+    // schema.validate(this.state).then(valid => {
+    //   console.log(valid);
+    auth.signInWithEmailAndPassword(email, password).then(res => {
+      console.log(res);
+      history.push("/home");
+    }).catch(error => {
+      console.log('Incorrect email or password')
+      //   setError.show(
+      //     "Alert Title",
+      //     "Sorry! Unable to Login!!",
+      //     [
+      //         { text: "OK", onClick: () => console.log("OK Pressed") }
+      //     ],
+      //     { cancelable: false }
+      // );
+    });
+
     //   }).catch(err => {
     //     console.log(err);
     //     // Alert.alert(
@@ -64,76 +63,76 @@ const LoginForm = ()=>{
     //     // );
     // });
 
-     
-      };
 
-      const onChangeHandler = (event) => {
-        const {name, value} = event.currentTarget;
-      
-        if(name === 'userEmail') {
-            setEmail(value);
-        }
-        else if(name === 'userPassword'){
-          setPassword(value);
-        }
-    };
+  };
 
-    // const updateUser = (dRequests) => {
-    //   firestore()
-    //       .collection('DonationRequest')
-    //       .doc(dRequests.key)
-    //       .delete()
-    //       .then(() => {
-    //           console.log('Donation Request deleted!');
-    //       });
-    // }
+  const onChangeHandler = (event) => {
+    const { name, value } = event.currentTarget;
 
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
-        e-Feed
+    if (name === 'userEmail') {
+      setEmail(value);
+    }
+    else if (name === 'userPassword') {
+      setPassword(value);
+    }
+  };
+
+  // const updateUser = (dRequests) => {
+  //   firestore()
+  //       .collection('DonationRequest')
+  //       .doc(dRequests.key)
+  //       .delete()
+  //       .then(() => {
+  //           console.log('Donation Request deleted!');
+  //       });
+  // }
+
+  function Copyright() {
+    return (
+      <Typography variant="body2" color="textSecondary" align="center">
+        {'Copyright © '}
+        <Link color="inherit" href="https://material-ui.com/">
+          e-Feed
       </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
+        {new Date().getFullYear()}
+        {'.'}
+      </Typography>
+    );
+  }
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    height: '100vh',
-  },
-  image: {
-    backgroundImage: "url(" + "https://source.unsplash.com/QVNyCllG2GQ" + ")",
-    backgroundRepeat: 'no-repeat',
-    backgroundColor:
-      theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-  },
-  paper: {
-    margin: theme.spacing(8, 4),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
-  },
-  form: {
-    width: '100%', // Fix IE 11 issue.
-    marginTop: theme.spacing(1),
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-    backgroundColor: "#1c313a"
-  },
-}));
+  const useStyles = makeStyles((theme) => ({
+    root: {
+      height: '100vh',
+    },
+    image: {
+      backgroundImage: "url(" + "https://source.unsplash.com/QVNyCllG2GQ" + ")",
+      backgroundRepeat: 'no-repeat',
+      backgroundColor:
+        theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+    },
+    paper: {
+      margin: theme.spacing(8, 4),
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+    },
+    avatar: {
+      margin: theme.spacing(1),
+      backgroundColor: theme.palette.secondary.main,
+    },
+    form: {
+      width: '100%', // Fix IE 11 issue.
+      marginTop: theme.spacing(1),
+    },
+    submit: {
+      margin: theme.spacing(3, 0, 2),
+      backgroundColor: "#1c313a"
+    },
+  }));
 
-//export default function SignInSide() {
+  //export default function SignInSide() {
   const classes = useStyles();
 
   return (
@@ -155,12 +154,12 @@ const useStyles = makeStyles((theme) => ({
               required
               fullWidth
               id="userEmail"
-              value= {email} 
+              value={email}
               type="email"
               label="Email Address"
               name="userEmail"
               autoComplete="email"
-              onChange = {(event) => onChangeHandler(event)}
+              onChange={(event) => onChangeHandler(event)}
               autoFocus
             />
             <TextField
@@ -173,7 +172,7 @@ const useStyles = makeStyles((theme) => ({
               type="password"
               id="userPassword"
               autoComplete="current-password"
-              onChange = {(event) => onChangeHandler(event)}
+              onChange={(event) => onChangeHandler(event)}
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
@@ -185,7 +184,7 @@ const useStyles = makeStyles((theme) => ({
               variant="contained"
               color="primary"
               className={classes.submit}
-              onClick = {(event) => {signInWithEmailAndPasswordHandler(event, email, password)}}
+              onClick={(event) => { signInWithEmailAndPasswordHandler(event, email, password) }}
             >
               Sign In
             </Button>
@@ -229,7 +228,7 @@ auth.createUserWithEmailAndPassword(email, password).then(res=>{
       </Grid>
     </Grid>
   );
-//}
+  //}
 };
 
 export default LoginForm;

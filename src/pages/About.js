@@ -1,36 +1,32 @@
-import React from 'react';
-//import './App.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import firebase from '../components/Firebase';
 import { firestore } from 'firebase';
-import User from '../components/User';
+import React from 'react';
 
 class About extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            feedbacks : [],
+            feedbacks: [],
         }
     }
 
-    componentDidMount () {
-        
+    componentDidMount() {
+
         firestore().collection('Feedback')
-        .onSnapshot(snapshot => {
-            const feedbacks = snapshot.docs
-                .map(feedback => {
-                    return {
-                        ...feedback?.data(),
-                        key: feedback.id
-                    }
-                })
-                this.setState({feedbacks: feedbacks});
-        })
+            .onSnapshot(snapshot => {
+                const feedbacks = snapshot.docs
+                    .map(feedback => {
+                        return {
+                            ...feedback?.data(),
+                            key: feedback.id
+                        }
+                    })
+                this.setState({ feedbacks: feedbacks });
+            })
     }
 
 
-    render(){
+    render() {
         return (
             <div className="MainDiv">
                 <div class="jumbotron text-center bg-sky">
@@ -47,16 +43,16 @@ class About extends React.Component {
                             </tr>
                         </thead>
                         <tbody>
-                        {this.state.feedbacks.map (feedback => {
-                            return (
-                                <tr>
-                                <td>{feedback.email}</td>
-                                <td>{feedback.feedback}</td>
-                                </tr>
-                             );
-                        })} 
+                            {this.state.feedbacks.map(feedback => {
+                                return (
+                                    <tr>
+                                        <td>{feedback.email}</td>
+                                        <td>{feedback.feedback}</td>
+                                    </tr>
+                                );
+                            })}
                         </tbody>
-                    </table> 
+                    </table>
                 </div>
 
             </div>
