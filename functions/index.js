@@ -6,10 +6,10 @@ admin.initializeApp(functions.config().firebase);
 
 exports.disableUser = functions.https.onCall((data, context) => {
     console.log(data);
-    return admin.auth().updateUser(data, {
+    return admin.auth().updateUser(data.uid, {
         disabled: true
     }).then(() => {
-        return admin.firestore().collection('Users').doc(data).update({ disabled: true })
+        return admin.firestore().collection('Users').doc(data.key).update({ disabled: true })
             .then(() => {
                 console.log(`Successfully disabled user: ${data}`);
                 return 200;

@@ -30,12 +30,14 @@ class Home extends React.Component {
 
     disableUser = (user) => {
         const disableUser = functions.httpsCallable('disableUser');
-        disableUser(user.uid).then(function(result) {
+        disableUser(user).then(function(result) {
             var message = result.data.text;
         console.log('Message: ', message);
+        alert("User disabled successfully")
             // ...
           }).catch(err=>{
               console.log('err, ', err);
+              alert('something went wrong'+err)
           });
      }
 
