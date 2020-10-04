@@ -2,19 +2,22 @@ const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 
 exports.disableUser = functions.https.onCall((data, context) => {
-    console.log(data);
-
     return admin.auth().updateUser(data, {
         disabled: true
     }).then(() => {
-        return admin.firestore().collection('users').doc(data).update({ disabled: true })
-            .then(() => {
+        return admin.firestore().collection('Users')
+            .doc(data)
+            .update({ disabled: true })
+            .then((data) => {
                 console.log(`Successfully disabled user: ${data}`);
-
-                return 200;
+                return data;
             })
-            .catch((error => console.log(error)));
-    }).catch(error => console.log(error));
-
-    return 500;
+            .catch((error => {
+                console.log(error);
+                return error;
+            }));
+    }).catch(err => {
+        console.log(err);
+        return err;
+    });
 });
